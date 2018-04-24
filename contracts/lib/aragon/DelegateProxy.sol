@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 import "../misc/ERCProxy.sol";
-import "../AddressUtils.sol";
+import "zeppelin-solidity/contracts/AddressUtils.sol";
 
 contract DelegateProxy is ERCProxy {
   using AddressUtils for address;

@@ -1,0 +1,38 @@
+{
+  "name": "r8-app",
+  "version": "0.0.1",
+  "description": "Secure and Upgradeable App library for Solidity",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test",
+    "console": "truffle console"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runningbeta/r8-app.git"
+  },
+  "keywords": [
+    "app",
+    "proxy",
+    "rbac",
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "r8",
+    "runningbeta",
+    "security",
+    "zeppelin"
+  ],
+  "author": "Kristijan Rebernisak <kristijan@runningbeta.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/runningbeta/r8-app/issues"
+  },
+  "homepage": "https://github.com/runningbeta/r8-app#readme",
+  "dependencies": {
+    "zeppelin-solidity": "1.8.0"
+  }
+}
