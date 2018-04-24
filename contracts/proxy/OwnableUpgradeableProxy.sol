@@ -1,13 +1,12 @@
 pragma solidity ^0.4.18;
 
 import './UpgradeableProxy.sol';
-import './OwnableUpgradeableProxyStorage.sol';
 
 /**
  * @title OwnableUpgradeableProxy
  * @dev This contract combines an upgradeability proxy with basic authorization control functionalities
  */
-contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableProxy {
+contract OwnableUpgradeableProxy is UpgradeableProxy {
   /**
   * @dev Event to show ownership has been transferred
   * @param previousOwner representing the address of the previous owner
@@ -15,11 +14,14 @@ contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableP
   */
   event ProxyOwnershipTransferred(address previousOwner, address newOwner);
 
+  // Storage position of the owner of the contract
+  bytes32 private constant proxyOwnerPosition = keccak256("io.runningbeta.proxy.owner");
+
   /**
   * @dev the constructor sets the original owner of the contract to the sender account.
   */
-  function OwnableUpgradeableProxy(string _version, address _implementation) public {
-    setUpgradeabilityOwner(msg.sender);
+  function OwnableUpgradeableProxy(bytes32 _version, address _implementation) public {
+    _setProxyOwner(msg.sender);
     _upgradeTo(_version, _implementation);
   }
 
@@ -32,11 +34,24 @@ contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableP
   }
 
   /**
-   * @dev Tells the address of the proxy owner
-   * @return the address of the proxy owner
+   * @dev Tells the address of the owner
+   * @return the address of the owner
    */
-  function proxyOwner() public view returns (address) {
-    return upgradeabilityOwner();
+  function proxyOwner() public view returns (address owner) {
+    bytes32 position = proxyOwnerPosition;
+    assembly {
+      owner := sload(position)
+    }
+  }
+
+  /**
+   * @dev Sets the address of the owner
+   */
+  function _setProxyOwner(address newProxyOwner) internal {
+    bytes32 position = proxyOwnerPosition;
+    assembly {
+      sstore(position, newProxyOwner)
+    }
   }
 
   /**
@@ -46,7 +61,7 @@ contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableP
   function transferProxyOwnership(address newOwner) public onlyProxyOwner {
     require(newOwner != address(0));
     ProxyOwnershipTransferred(proxyOwner(), newOwner);
-    setUpgradeabilityOwner(newOwner);
+    _setProxyOwner(newOwner);
   }
 
   /**
@@ -54,7 +69,7 @@ contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableP
    * @param version representing the version name of the new implementation to be set.
    * @param implementation representing the address of the new implementation to be set.
    */
-  function upgradeTo(string version, address implementation) public onlyProxyOwner {
+  function upgradeTo(bytes32 version, address implementation) public onlyProxyOwner {
     _upgradeTo(version, implementation);
   }
 
@@ -66,7 +81,8 @@ contract OwnableUpgradeableProxy is OwnableUpgradeableProxyStorage, UpgradeableP
    * @param data represents the msg.data to bet sent in the low level call. This parameter may include the function
    * signature of the implementation to be called with the needed payload
    */
-  function upgradeToAndCall(string version, address implementation, bytes data) payable public onlyProxyOwner {
+  function upgradeToAndCall(bytes32 version, address implementation, bytes data) payable public onlyProxyOwner {
     upgradeToAndCall(version, implementation, data);
   }
+
 }

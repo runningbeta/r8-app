@@ -16,7 +16,7 @@ contract AppProxyFactory {
   * @param _version representing the first version to be set for the proxy
   * @return address of the new proxy created
   */
-  function createProxy(string _version, address _implementation) public payable returns (OwnableUpgradeableProxy) {
+  function createProxy(bytes32 _version, address _implementation) public payable returns (OwnableUpgradeableProxy) {
     OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);

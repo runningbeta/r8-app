@@ -33,6 +33,6 @@ npm install r8-app
 
 ## The upgrade mechanism
 
-The pattern used is `Upgradeability using Inherited Storage` as described in [this repo](https://github.com/zeppelinos/labs/tree/master/upgradeability_using_inherited_storage) by [Zeppelin](https://zeppelinos.org/).
+The pattern used is `Upgradeability using Unstructured Storage` as described in [this repo](https://github.com/zeppelinos/labs/tree/master/upgradeability_using_unstructured_storage) and in [this](https://blog.zeppelinos.org/upgradeability-using-unstructured-storage/) blog post by [Zeppelin](https://zeppelinos.org/).
 
 Understanding the [DELEGATECALL](https://solidity.readthedocs.io/en/develop/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries) Ethereum opcode is key to understanding the upgradeable proxy pattern.

@@ -35,5 +35,8 @@
   "homepage": "https://github.com/runningbeta/r8-app#readme",
   "dependencies": {
     "zeppelin-solidity": "1.8.0"
+  },
+  "devDependencies": {
+    "web3-utils": "^1.0.0-beta.34"
   }
 }

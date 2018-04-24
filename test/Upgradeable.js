@@ -1,3 +1,5 @@
+var web3Utils = require('web3-utils');
+
 const TokenV1_0 = artifacts.require('TokenV1_0')
 const TokenV1_1 = artifacts.require('TokenV1_1')
 
@@ -12,13 +14,13 @@ contract('R8App', function ([sender, receiver]) {
 
     const factory = await Factory.new()
 
-    const {logs} = await factory.createProxy('1.0', impl_v1_0.address)
+    const {logs} = await factory.createProxy(web3Utils.utf8ToHex('1.0'), impl_v1_0.address)
 
     const proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy
 
     await TokenV1_0.at(proxy).mint(sender, 100)
 
-    await Proxy.at(proxy).upgradeTo('1.1', impl_v1_1.address)
+    await Proxy.at(proxy).upgradeTo(web3Utils.utf8ToHex('1.1'), impl_v1_1.address)
 
     await TokenV1_1.at(proxy).mint(sender, 100)
 
