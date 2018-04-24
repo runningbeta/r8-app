@@ -11,9 +11,6 @@ contract AppStorage {
   // Address of the current implementation
   address internal implementation_;
 
-  // Block number when the app was initialized
-  uint256 internal initializationBlock;
-
   /**
    * @dev Tells the version name of the current implementation
    * @return string representing the name of the current version
