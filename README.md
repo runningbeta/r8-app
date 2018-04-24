@@ -7,7 +7,7 @@ Proxy contracts are being increasingly used as both as an upgradeability mechani
 
 ## Getting started
 
-You will need Truffle to work with EthPM:
+You will need [Truffle framework](http://truffleframework.com):
 ```bash
 # Make sure we have the latest truffle version
 npm uninstall -g truffle
@@ -18,17 +18,17 @@ To test this project locally, clone the repo and run:
 
 ```bash
 # install dependencies
-truffle install zeppelin
+npm install
 
 # run tests
 truffle test
 ```
 
-To use the code as an EthPM package:
+To use the code we provide an NPM package:
 
 ```bash
 # install dependencies
-truffle install r8-app
+npm install r8-app
 ```
 
 ## The upgrade mechanism
