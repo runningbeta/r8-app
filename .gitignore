@@ -1,0 +1,5 @@
+# EthPM packages folder
+installed_contracts/
+
+# Truffle build folder
+build/
