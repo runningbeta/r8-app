@@ -1,27 +1,33 @@
 pragma solidity ^0.4.18;
 
-import './IRegistry.sol';
-
 /**
  * @title AppStorage
  * @dev This contract holds all the necessary state variables to support the upgrade functionality
  */
 contract AppStorage {
-  // Versions registry
-  IRegistry internal registry;
+  // Version name of the current implementation
+  string internal version_;
 
   // Address of the current implementation
-  address internal _implementation;
+  address internal implementation_;
 
   // Block number when the app was initialized
   uint256 internal initializationBlock;
+
+  /**
+   * @dev Tells the version name of the current implementation
+   * @return string representing the name of the current version
+   */
+  function version() public view returns (string) {
+    return version_;
+  }
 
   /**
    * @dev Tells the address of the current implementation
    * @return address of the current implementation
    */
   function implementation() public view returns (address) {
-    return _implementation;
+    return implementation_;
   }
 
 }

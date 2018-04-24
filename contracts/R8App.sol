@@ -12,9 +12,9 @@ contract R8App is AppStorage, Initializable {
   /**
   * @dev Validates the caller is the versions registry.
   * THIS FUNCTION SHOULD BE OVERRIDDEN CALLING SUPER
-  * @param sender representing the address deploying the initial behavior of the contract
+  * @param _sender representing the address deploying the initial behavior of the contract
   */
-  function initialize(address sender) public payable {
-    require(msg.sender == address(registry));
+  function initialize(address _sender) public payable {
+    //require(msg.sender == address(registry));
   }
 }

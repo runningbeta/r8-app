@@ -10,7 +10,7 @@ contract DepositableDelegateProxy is DelegateProxy {
     // send / transfer
     if (msg.gas < FWD_GAS_LIMIT) {
       require(msg.value > 0 && msg.data.length == 0);
-      ProxyDeposit(msg.sender, msg.value);
+      emit ProxyDeposit(msg.sender, msg.value);
     } else { // all calls except for send or transfer
       address target = implementation();
       delegatedFwd(target, msg.data);
