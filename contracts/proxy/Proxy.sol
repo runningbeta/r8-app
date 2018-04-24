@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-import "./lib/aragon/DepositableDelegateProxy.sol";
+import "../lib/aragon/DepositableDelegateProxy.sol";
 
 /**
  * @title Proxy

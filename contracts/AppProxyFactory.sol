@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 import "./R8App.sol";
-import "./UpgradeabilityProxy.sol";
+import "./proxy/UpgradeabilityProxy.sol";
 
 contract AppProxyFactory {
 

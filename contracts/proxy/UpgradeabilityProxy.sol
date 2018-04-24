@@ -1,13 +1,13 @@
 pragma solidity ^0.4.18;
 
 import './Proxy.sol';
-import './AppStorage.sol';
+import './ProxyStorage.sol';
 
 /**
  * @title UpgradeabilityProxy
  * @dev This contract represents a proxy where the implementation address to which it will delegate can be upgraded
  */
-contract UpgradeabilityProxy is Proxy, AppStorage {
+contract UpgradeabilityProxy is Proxy, ProxyStorage {
 
   /**
    * @dev This event will be emitted every time the implementation gets upgraded

@@ -1,30 +1,14 @@
 pragma solidity ^0.4.18;
 
+import './proxy/ProxyStorage.sol';
+import './init/InitializableStorage.sol';
+
 /**
  * @title AppStorage
- * @dev This contract holds all the necessary state variables to support the upgrade functionality
+ * @dev This contract holds all the necessary state variables required for R8App
  */
-contract AppStorage {
-  // Version name of the current implementation
-  string internal version_;
-
-  // Address of the current implementation
-  address internal implementation_;
-
-  /**
-   * @dev Tells the version name of the current implementation
-   * @return string representing the name of the current version
-   */
-  function version() public view returns (string) {
-    return version_;
-  }
-
-  /**
-   * @dev Tells the address of the current implementation
-   * @return address of the current implementation
-   */
-  function implementation() public view returns (address) {
-    return implementation_;
-  }
+contract AppStorage is ProxyStorage, InitializableStorage {
+  // forces App storage to start at after 100 slots
+  uint256[50] private storageOffset;
 
 }
