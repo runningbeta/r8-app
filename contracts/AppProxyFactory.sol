@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 import "./R8App.sol";
-import "./proxy/UpgradeabilityProxy.sol";
+import "./proxy/OwnableUpgradeableProxy.sol";
 
 contract AppProxyFactory {
 
@@ -16,9 +16,10 @@ contract AppProxyFactory {
   * @param _version representing the first version to be set for the proxy
   * @return address of the new proxy created
   */
-  function createProxy(string _version, address _implementation) public payable returns (UpgradeabilityProxy) {
-    UpgradeabilityProxy proxy = new UpgradeabilityProxy(_version, _implementation);
+  function createProxy(string _version, address _implementation) public payable returns (OwnableUpgradeableProxy) {
+    OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
+    proxy.transferProxyOwnership(msg.sender);
     emit NewAppProxy(proxy, true);
     return proxy;
   }

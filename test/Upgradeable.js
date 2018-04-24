@@ -2,7 +2,7 @@ const TokenV1_0 = artifacts.require('TokenV1_0')
 const TokenV1_1 = artifacts.require('TokenV1_1')
 
 const Factory = artifacts.require('AppProxyFactory')
-const Proxy = artifacts.require('UpgradeabilityProxy')
+const Proxy = artifacts.require('OwnableUpgradeableProxy')
 
 contract('R8App', function ([sender, receiver]) {
 

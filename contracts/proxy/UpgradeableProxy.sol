@@ -4,10 +4,10 @@ import './Proxy.sol';
 import './ProxyStorage.sol';
 
 /**
- * @title UpgradeabilityProxy
+ * @title UpgradeableProxy
  * @dev This contract represents a proxy where the implementation address to which it will delegate can be upgraded
  */
-contract UpgradeabilityProxy is Proxy, ProxyStorage {
+contract UpgradeableProxy is Proxy, ProxyStorage {
 
   /**
    * @dev This event will be emitted every time the implementation gets upgraded
@@ -17,18 +17,11 @@ contract UpgradeabilityProxy is Proxy, ProxyStorage {
   event Upgraded(string _version, address _implementation);
 
   /**
-   * @dev Constructor function
-   */
-  function UpgradeabilityProxy(string _version, address _implementation) public {
-    upgradeTo(_version, _implementation);
-  }
-
-  /**
    * @dev Upgrades the implementation address
    * @param _version representing the version name of the new implementation to be set
    * @param _implementation representing the address of the new implementation to be set
    */
-  function upgradeTo(string _version, address _implementation) public {
+  function _upgradeTo(string _version, address _implementation) internal {
     require(implementation_ != _implementation);
     version_ = _version;
     implementation_ = _implementation;
@@ -43,8 +36,8 @@ contract UpgradeabilityProxy is Proxy, ProxyStorage {
    * @param _data represents the msg.data to bet sent in the low level call. This parameter may include the function
    * signature of the implementation to be called with the needed payload
    */
-  function upgradeToAndCall(string _version, address _implementation, bytes _data) public payable {
-    upgradeTo(_version, _implementation);
+  function _upgradeToAndCall(string _version, address _implementation, bytes _data) internal {
+    _upgradeTo(_version, _implementation);
     require(address(this).call.value(msg.value)(_data));
   }
 
