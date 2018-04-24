@@ -1,8 +1,9 @@
 # r8-app
-🌱Ethereum upgradeable application using a DelegateProxy with RBAC governance
 
 This is a simplified version of the system being used by the
 [AragonOS](https://github.com/aragon/aragonOS) and [ZepplinOS](https://github.com/zeppelinos/core) systems.
+
+Proxy contracts are being increasingly used as both as an upgradeability mechanism and a way to save gas when deploying many instances of a particular contract. [EIP897 standard](https://github.com/ethereum/EIPs/pull/897) proposes a set of interfaces for proxies to signal how they work and what their main implementation is.
 
 ## Getting started
 
