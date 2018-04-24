@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 import './IRegistry.sol';
-import './Upgradeable.sol';
+import './R8App.sol';
 import './UpgradeabilityProxy.sol';
 
 /**
@@ -39,7 +39,7 @@ contract Registry is IRegistry {
   */
   function createProxy(string version) public payable returns (UpgradeabilityProxy) {
     UpgradeabilityProxy proxy = new UpgradeabilityProxy(version);
-    Upgradeable(proxy).initialize.value(msg.value)(msg.sender);
+    R8App(proxy).initialize.value(msg.value)(msg.sender);
     ProxyCreated(proxy);
     return proxy;
   }

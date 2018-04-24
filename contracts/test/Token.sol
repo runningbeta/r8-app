@@ -1,8 +1,8 @@
 pragma solidity ^0.4.18;
 
-import '../Upgradeable.sol';
+import '../R8App.sol';
 
-contract TokenV1_0 is Upgradeable {
+contract TokenV1_0 is R8App {
   mapping (address => uint) balances;
 
   event Transfer(address indexed from, address indexed to, uint256 _value);

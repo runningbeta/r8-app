@@ -4,7 +4,7 @@ const TokenV1_1 = artifacts.require('TokenV1_1')
 const Registry = artifacts.require('Registry')
 const Proxy = artifacts.require('UpgradeabilityProxy')
 
-contract('Upgradeable', function ([sender, receiver]) {
+contract('R8App', function ([sender, receiver]) {
 
   it('should work', async function () {
     const impl_v1_0 = await TokenV1_0.new()
