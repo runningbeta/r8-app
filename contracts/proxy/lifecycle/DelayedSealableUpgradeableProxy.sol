@@ -73,7 +73,7 @@ contract DelayedSealableUpgradeableProxy is SealableUpgradeableProxy {
   }
 
    /// @dev Request to seal the contract
-  function sealRequest(uint256 _delay) onlyProxyOwner whenProxyNotSealed public {
+  function proxySealRequest(uint256 _delay) onlyProxyOwner whenProxyNotSealed public {
     require(!proxySealRequested());
     require(_delay >= MIN_DELAY);
     // Seal is now requested
@@ -84,15 +84,15 @@ contract DelayedSealableUpgradeableProxy is SealableUpgradeableProxy {
   }
 
   /// @dev Cancel the latest request to seal the contract
-  function cancelSealRequest() onlyProxyOwner whenProxyNotSealed public {
+  function cancelProxySealRequest() onlyProxyOwner whenProxyNotSealed public {
     require(proxySealRequested());
     _setProxySealRequested(false);
-    // No need to change sealBlock since sealRequest() has to be called again.
+    // No need to change sealBlock since proxySealRequest() has to be called again.
     emit ProxySealRequestCancelled(msg.sender);
   }
 
   /// @dev Seal the contract
-  function sealProxy() onlyProxyOwner whenProxyNotSealed public {
+  function sealProxy() public {
     require(proxySealRequested());
     require(block.number >= proxySealBlock());
     super.sealProxy();

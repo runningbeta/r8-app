@@ -37,13 +37,14 @@ contract AppProxyFactory {
     return proxy;
   }
 
-  function newSealableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (SealableUpgradeableProxy) {
-    SealableUpgradeableProxy proxy = new SealableUpgradeableProxy(_version, _implementation, _contentURI);
-    R8App(proxy).initialize.value(msg.value)(msg.sender);
-    proxy.transferProxyOwnership(msg.sender);
-    emit NewAppProxy(address(proxy), true);
-    return proxy;
-  }
+  // TODO: this makes test fail with Error: VM Exception while processing transaction: out of gas
+  // function newSealableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (SealableUpgradeableProxy) {
+  //   SealableUpgradeableProxy proxy = new SealableUpgradeableProxy(_version, _implementation, _contentURI);
+  //   R8App(proxy).initialize.value(msg.value)(msg.sender);
+  //   proxy.transferProxyOwnership(msg.sender);
+  //   emit NewAppProxy(address(proxy), true);
+  //   return proxy;
+  // }
 
   function newDelayedSealableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (DelayedSealableUpgradeableProxy) {
     DelayedSealableUpgradeableProxy proxy = new DelayedSealableUpgradeableProxy(_version, _implementation, _contentURI);

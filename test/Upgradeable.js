@@ -6,7 +6,7 @@ const TokenV1_1 = artifacts.require('TokenV1_1')
 const Factory = artifacts.require('AppProxyFactory')
 const Proxy = artifacts.require('OwnableUpgradeableProxy')
 
-contract('R8App', function ([sender, receiver]) {
+contract('OwnableUpgradeableProxy', function ([sender, receiver]) {
 
   it('should work', async function () {
     const contentURI = web3Utils.utf8ToHex('token.runningbeta.eth')
