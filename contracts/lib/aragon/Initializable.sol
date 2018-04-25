@@ -1,9 +1,15 @@
 pragma solidity ^0.4.23;
 
-import "./InitializableStorage.sol";
 
+contract Initializable {
 
-contract Initializable is InitializableStorage {
+  // Block number when the app was initialized
+  uint256 internal initializationBlock_;
+
+  /// @return Block number in which the contract was initialized
+  function initializationBlock() public view returns (uint256) {
+    return initializationBlock_;
+  }
 
   modifier onlyInit {
     require(initializationBlock_ == 0);

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 
 import "./AppStorage.sol";
-import "./init/Initializable.sol";
+import "./lib/aragon/Initializable.sol";
 
 
 /**
