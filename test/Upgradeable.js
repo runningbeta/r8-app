@@ -14,7 +14,7 @@ contract('R8App', function ([sender, receiver]) {
 
     const factory = await Factory.new()
 
-    const {logs} = await factory.createProxy(web3Utils.utf8ToHex('1.0'), impl_v1_0.address)
+    const {logs} = await factory.newAppProxy(web3Utils.utf8ToHex('1.0'), impl_v1_0.address)
 
     const proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy
 
@@ -30,7 +30,6 @@ contract('R8App', function ([sender, receiver]) {
 
     const balance = await TokenV1_1.at(proxy).balanceOf(sender)
     assert(balance.eq(10190))
-
   })
 
 })
