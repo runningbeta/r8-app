@@ -1,13 +1,13 @@
 pragma solidity ^0.4.23;
 
-import "../OwnableUpgradeableProxy.sol";
+import "./PausableUpgradeableProxy.sol";
 
 
 /**
  * @title SealableUpgradeableProxy
  * @dev This contract combines an upgradeability proxy with basic authorization control functionalities
  */
-contract SealableUpgradeableProxy is OwnableUpgradeableProxy {
+contract SealableUpgradeableProxy is PausableUpgradeableProxy {
   event ProxySealed(address _owner);
 
   // Storage position of the sealed flag
@@ -17,7 +17,7 @@ contract SealableUpgradeableProxy is OwnableUpgradeableProxy {
    * @dev the constructor sets the original owner of the contract to the sender account.
    */
   constructor(bytes32 _version, address _implementation, bytes _contentURI)
-    OwnableUpgradeableProxy(_version, _implementation, _contentURI)
+    PausableUpgradeableProxy(_version, _implementation, _contentURI)
     public
   {}
 
@@ -55,7 +55,7 @@ contract SealableUpgradeableProxy is OwnableUpgradeableProxy {
   }
 
   /// @dev Seal the contract
-  function seal() onlyProxyOwner whenProxyNotSealed public {
+  function sealProxy() onlyProxyOwner whenProxyNotSealed public {
     // Contract is now sealed forever
     _setProxySealed(true);
     emit ProxySealed(msg.sender);

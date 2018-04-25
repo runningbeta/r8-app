@@ -42,7 +42,7 @@ contract UpgradeableProxy is ProxyBase {
    */
   function _upgradeToAndCall(bytes32 _version, address _implementation, bytes _contentURI, bytes _data) internal {
     _upgradeTo(_version, _implementation, _contentURI);
-    require(address(this).call.value(msg.value)(_data));
+    require(address(this).call.value(msg.value)(_data)); // solium-disable-line security/no-call-value
   }
 
   /// @dev ERC897, whether it is a forwarding (1) or an upgradeable (2) proxy

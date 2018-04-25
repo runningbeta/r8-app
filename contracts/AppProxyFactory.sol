@@ -5,6 +5,7 @@ import "./proxy/PinnedProxy.sol";
 import "./proxy/OwnableUpgradeableProxy.sol";
 import "./proxy/lifecycle/PausableUpgradeableProxy.sol";
 import "./proxy/lifecycle/SealableUpgradeableProxy.sol";
+import "./proxy/lifecycle/DelayedSealableUpgradeableProxy.sol";
 
 
 contract AppProxyFactory {
@@ -38,6 +39,14 @@ contract AppProxyFactory {
 
   function newSealableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (SealableUpgradeableProxy) {
     SealableUpgradeableProxy proxy = new SealableUpgradeableProxy(_version, _implementation, _contentURI);
+    R8App(proxy).initialize.value(msg.value)(msg.sender);
+    proxy.transferProxyOwnership(msg.sender);
+    emit NewAppProxy(address(proxy), true);
+    return proxy;
+  }
+
+  function newDelayedSealableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (DelayedSealableUpgradeableProxy) {
+    DelayedSealableUpgradeableProxy proxy = new DelayedSealableUpgradeableProxy(_version, _implementation, _contentURI);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
     emit NewAppProxy(address(proxy), true);
