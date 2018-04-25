@@ -1,4 +1,4 @@
-# r8-app
+# r8-app 🌱
 
 This is a simplified version of the system being used by the
 [AragonOS](https://github.com/aragon/aragonOS) and [ZepplinOS](https://github.com/zeppelinos/core) systems.

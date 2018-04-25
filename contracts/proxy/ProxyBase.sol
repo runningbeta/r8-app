@@ -14,6 +14,9 @@ contract ProxyBase is Proxy {
   // Storage position of the address of the current implementation
   bytes32 private constant implementationPosition = keccak256("io.runningbeta.proxy.implementation");
 
+  // External URI for fetching new version's content
+  bytes32 private constant contentURIPosition = keccak256("io.runningbeta.proxy.contentURI");
+
   /**
    * @dev Tells the version name of the current implementation
    * @return bytes32 representing the name of the current version
@@ -55,6 +58,28 @@ contract ProxyBase is Proxy {
     bytes32 position = implementationPosition;
     assembly {
       sstore(position, _implementation)
+    }
+  }
+
+  /**
+   * @dev Tells the contentURI of the current implementation
+   * @return _contentURI bytes representing the external URI for fetching new version's content
+   */
+  function contentURI() public view returns (bytes _contentURI) {
+    bytes32 position = contentURIPosition;
+    assembly {
+      _contentURI := sload(position)
+    }
+  }
+
+  /**
+   * @dev Sets the contentURI of the current implementation
+   * @param _contentURI bytes representing the external URI for fetching new version's content
+   */
+  function _setContentURI(bytes _contentURI) internal {
+    bytes32 position = contentURIPosition;
+    assembly {
+      sstore(position, _contentURI)
     }
   }
 

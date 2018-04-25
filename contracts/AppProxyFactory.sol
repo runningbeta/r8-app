@@ -17,16 +17,16 @@ contract AppProxyFactory {
    * @param _version representing the first version to be set for the proxy
    * @return address of the new proxy created
    */
-  function newAppProxy(bytes32 _version, address _implementation) public payable returns (OwnableUpgradeableProxy) {
-    OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation);
+  function newAppProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (OwnableUpgradeableProxy) {
+    OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation, _contentURI);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
     emit NewAppProxy(address(proxy), true);
     return proxy;
   }
 
-  function newAppProxyPinned(bytes32 _version, address _implementation) public returns (PinnedProxy) {
-    PinnedProxy proxy = new PinnedProxy(_version, _implementation);
+  function newAppProxyPinned(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PinnedProxy) {
+    PinnedProxy proxy = new PinnedProxy(_version, _implementation, _contentURI);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     emit NewAppProxy(address(proxy), true);
     return proxy;

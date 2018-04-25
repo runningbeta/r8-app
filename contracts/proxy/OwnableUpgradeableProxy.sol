@@ -20,9 +20,9 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
   /**
    * @dev the constructor sets the original owner of the contract to the sender account.
    */
-  function OwnableUpgradeableProxy(bytes32 _version, address _implementation) public {
+  function OwnableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public {
     _setProxyOwner(msg.sender);
-    _upgradeTo(_version, _implementation);
+    _upgradeTo(_version, _implementation, _contentURI);
   }
 
   /// @dev Throws if called by any account other than the owner.
@@ -58,7 +58,7 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
    */
   function transferProxyOwnership(address newOwner) public onlyProxyOwner {
     require(newOwner != address(0));
-    ProxyOwnershipTransferred(proxyOwner(), newOwner);
+    emit ProxyOwnershipTransferred(proxyOwner(), newOwner);
     _setProxyOwner(newOwner);
   }
 
@@ -67,8 +67,8 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
    * @param version representing the version name of the new implementation to be set.
    * @param implementation representing the address of the new implementation to be set.
    */
-  function upgradeTo(bytes32 version, address implementation) public onlyProxyOwner {
-    _upgradeTo(version, implementation);
+  function upgradeTo(bytes32 version, address implementation, bytes _contentURI) public onlyProxyOwner {
+    _upgradeTo(version, implementation, _contentURI);
   }
 
   /**
@@ -79,8 +79,16 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
    * @param data represents the msg.data to bet sent in the low level call. This parameter may include the function
    * signature of the implementation to be called with the needed payload
    */
-  function upgradeToAndCall(bytes32 version, address implementation, bytes data) payable public onlyProxyOwner {
-    upgradeToAndCall(version, implementation, data);
+  function upgradeToAndCall(bytes32 version, address implementation, bytes _contentURI, bytes data) payable public onlyProxyOwner {
+    upgradeToAndCall(version, implementation, _contentURI, data);
+  }
+
+  /**
+   * @dev Sets the contentURI of the current implementation
+   * @param _contentURI bytes representing the external URI for fetching new version's content
+   */
+  function updateContentURI(bytes _contentURI) public onlyProxyOwner {
+    _setContentURI(_contentURI);
   }
 
 }
