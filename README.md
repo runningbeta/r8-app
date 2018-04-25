@@ -1,5 +1,7 @@
 # r8-app 🌱
 
+[![CircleCI](https://circleci.com/gh/runningbeta/r8-app/tree/master.svg?style=svg)](https://circleci.com/gh/runningbeta/r8-app/tree/master)
+
 This is a simplified version of the system being used by the
 [AragonOS](https://github.com/aragon/aragonOS) and [ZepplinOS](https://github.com/zeppelinos/core) systems.
 
