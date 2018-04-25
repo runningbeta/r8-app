@@ -81,7 +81,7 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
    * signature of the implementation to be called with the needed payload
    */
   function upgradeToAndCall(bytes32 version, address implementation, bytes _contentURI, bytes data) payable public onlyProxyOwner {
-    upgradeToAndCall(version, implementation, _contentURI, data);
+    _upgradeToAndCall(version, implementation, _contentURI, data);
   }
 
   /**
