@@ -23,42 +23,42 @@ contract AppProxyFactory {
    */
   function newUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (OwnableUpgradeableProxy) {
     OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation, _contentURI);
-    R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
-    emit NewAppProxy(address(proxy), true);
+    _init(proxy, true);
     return proxy;
   }
 
   function newPausableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PausableUpgradeableProxy) {
     PausableUpgradeableProxy proxy = new PausableUpgradeableProxy(_version, _implementation, _contentURI);
-    R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
-    emit NewAppProxy(address(proxy), true);
+    _init(proxy, true);
     return proxy;
   }
 
   // TODO: this makes test fail with Error: VM Exception while processing transaction: out of gas
   // function newSealableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (SealableUpgradeableProxy) {
   //   SealableUpgradeableProxy proxy = new SealableUpgradeableProxy(_version, _implementation, _contentURI);
-  //   R8App(proxy).initialize.value(msg.value)(msg.sender);
   //   proxy.transferProxyOwnership(msg.sender);
-  //   emit NewAppProxy(address(proxy), true);
+  //   _init(proxy, true);
   //   return proxy;
   // }
 
   function newDelayedSealableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (DelayedSealableUpgradeableProxy) {
     DelayedSealableUpgradeableProxy proxy = new DelayedSealableUpgradeableProxy(_version, _implementation, _contentURI);
-    R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
-    emit NewAppProxy(address(proxy), true);
+    _init(proxy, true);
     return proxy;
   }
 
   function newPinnedProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PinnedProxy) {
     PinnedProxy proxy = new PinnedProxy(_version, _implementation, _contentURI);
-    R8App(proxy).initialize.value(msg.value)(msg.sender);
-    emit NewAppProxy(address(proxy), true);
+    _init(proxy, false);
     return proxy;
+  }
+
+  function _init(Proxy _proxy, bool _isUpgradeable) internal {
+    R8App(_proxy).initialize.value(msg.value)(msg.sender);
+    emit NewAppProxy(address(_proxy), _isUpgradeable);
   }
 
 }
