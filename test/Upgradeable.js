@@ -16,7 +16,7 @@ contract('R8App', function ([sender, receiver]) {
 
     const factory = await Factory.new()
 
-    const {logs} = await factory.newAppProxy(web3Utils.utf8ToHex('1.0'), impl_v1_0.address, contentURI)
+    const {logs} = await factory.newUgradeableProxy(web3Utils.utf8ToHex('1.0'), impl_v1_0.address, contentURI)
 
     const proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy
 

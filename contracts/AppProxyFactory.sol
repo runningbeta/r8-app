@@ -1,8 +1,9 @@
 pragma solidity ^0.4.18;
 
 import "./R8App.sol";
-import "./proxy/OwnableUpgradeableProxy.sol";
 import "./proxy/PinnedProxy.sol";
+import "./proxy/OwnableUpgradeableProxy.sol";
+import "./proxy/lifecycle/PausableUpgradeableProxy.sol";
 
 contract AppProxyFactory {
 
@@ -17,7 +18,7 @@ contract AppProxyFactory {
    * @param _version representing the first version to be set for the proxy
    * @return address of the new proxy created
    */
-  function newAppProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (OwnableUpgradeableProxy) {
+  function newUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (OwnableUpgradeableProxy) {
     OwnableUpgradeableProxy proxy = new OwnableUpgradeableProxy(_version, _implementation, _contentURI);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     proxy.transferProxyOwnership(msg.sender);
@@ -25,7 +26,15 @@ contract AppProxyFactory {
     return proxy;
   }
 
-  function newAppProxyPinned(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PinnedProxy) {
+  function newPausableUgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PausableUpgradeableProxy) {
+    PausableUpgradeableProxy proxy = new PausableUpgradeableProxy(_version, _implementation, _contentURI);
+    R8App(proxy).initialize.value(msg.value)(msg.sender);
+    proxy.transferProxyOwnership(msg.sender);
+    emit NewAppProxy(address(proxy), true);
+    return proxy;
+  }
+
+  function newPinnedProxy(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (PinnedProxy) {
     PinnedProxy proxy = new PinnedProxy(_version, _implementation, _contentURI);
     R8App(proxy).initialize.value(msg.value)(msg.sender);
     emit NewAppProxy(address(proxy), true);
