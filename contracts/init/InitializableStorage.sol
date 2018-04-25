@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
 
+
 /**
  * @title InitializableStorage
  * @dev This contract holds all the necessary state variables to support the app initialization

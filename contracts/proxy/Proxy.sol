@@ -2,6 +2,7 @@ pragma solidity ^0.4.18;
 
 import "../lib/aragon/DepositableDelegateProxy.sol";
 
+
 /**
  * @title Proxy
  * @dev Gives the possibility to delegate any call to a foreign implementation.

@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
-import '../R8App.sol';
+import "../R8App.sol";
+
 
 contract TokenV1_0 is R8App {
   mapping (address => uint) balances;
@@ -20,15 +21,16 @@ contract TokenV1_0 is R8App {
     require(balances[msg.sender] >= value);
     balances[msg.sender] -= value;
     balances[to] += value;
-    Transfer(msg.sender, to, value);
+    emit Transfer(msg.sender, to, value);
   }
 
   function mint(address to, uint256 value) public {
     balances[to] += value;
-    Transfer(0x0, to, value);
+    emit Transfer(0x0, to, value);
   }
 
 }
+
 
 contract TokenV1_1 is TokenV1_0 {
   mapping (address => mapping (address => uint)) allowances;

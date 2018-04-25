@@ -2,6 +2,7 @@ pragma solidity ^0.4.18;
 
 import "./DelegateProxy.sol";
 
+
 contract DepositableDelegateProxy is DelegateProxy {
 
   event ProxyDeposit(address sender, uint256 value);

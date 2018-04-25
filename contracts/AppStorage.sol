@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
 
+
 /**
  * @title AppStorage
  * @dev This contract holds all the necessary state variables required for R8App

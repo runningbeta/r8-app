@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
 
+
 /**
  * @title ERC-897 DelegateProxy, basic interface
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-897.md

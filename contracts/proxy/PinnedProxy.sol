@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
-import './ProxyBase.sol';
+import "./ProxyBase.sol";
+
 
 /**
  * @title PinnedProxy

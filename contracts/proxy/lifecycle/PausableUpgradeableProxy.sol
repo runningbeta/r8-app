@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
-import '../OwnableUpgradeableProxy.sol';
+import "../OwnableUpgradeableProxy.sol";
+
 
 /**
  * @title PausableUpgradeableProxy
@@ -17,7 +18,9 @@ contract PausableUpgradeableProxy is OwnableUpgradeableProxy {
    * @dev the constructor sets the original owner of the contract to the sender account.
    */
   function PausableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI)
-    OwnableUpgradeableProxy(_version, _implementation, _contentURI) public {}
+    OwnableUpgradeableProxy(_version,_implementation,_contentURI)
+    public
+  {}
 
   /**
    * @dev Tells the proxy is paused

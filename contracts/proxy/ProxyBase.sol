@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
-import './Proxy.sol';
+import "./Proxy.sol";
+
 
 /**
  * @title ProxyBase
