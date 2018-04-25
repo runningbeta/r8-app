@@ -8,26 +8,24 @@ import './UpgradeableProxy.sol';
  */
 contract OwnableUpgradeableProxy is UpgradeableProxy {
   /**
-  * @dev Event to show ownership has been transferred
-  * @param previousOwner representing the address of the previous owner
-  * @param newOwner representing the address of the new owner
-  */
+   * @dev Event to show ownership has been transferred
+   * @param previousOwner representing the address of the previous owner
+   * @param newOwner representing the address of the new owner
+   */
   event ProxyOwnershipTransferred(address previousOwner, address newOwner);
 
   // Storage position of the owner of the contract
   bytes32 private constant proxyOwnerPosition = keccak256("io.runningbeta.proxy.owner");
 
   /**
-  * @dev the constructor sets the original owner of the contract to the sender account.
-  */
+   * @dev the constructor sets the original owner of the contract to the sender account.
+   */
   function OwnableUpgradeableProxy(bytes32 _version, address _implementation) public {
     _setProxyOwner(msg.sender);
     _upgradeTo(_version, _implementation);
   }
 
-  /**
-  * @dev Throws if called by any account other than the owner.
-  */
+  /// @dev Throws if called by any account other than the owner.
   modifier onlyProxyOwner() {
     require(msg.sender == proxyOwner());
     _;

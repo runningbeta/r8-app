@@ -9,8 +9,8 @@ import './ProxyBase.sol';
 contract PinnedProxy is ProxyBase {
 
   /**
-  * @dev the constructor sets the original owner of the contract to the sender account.
-  */
+   * @dev the constructor sets the original owner of the contract to the sender account.
+   */
   function PinnedProxy(bytes32 _version, address _implementation) public {
     require(version() != _version);
     require(implementation() != _implementation);
@@ -18,9 +18,7 @@ contract PinnedProxy is ProxyBase {
     _setImplementation(_implementation);
   }
 
-  /**
-   * @dev ERC897, whether it is a forwarding (1) or an upgradeable (2) proxy
-   */
+  /// @dev ERC897, whether it is a forwarding (1) or an upgradeable (2) proxy
   function proxyType() public pure returns (uint256 proxyTypeId) {
     return FORWARDING;
   }

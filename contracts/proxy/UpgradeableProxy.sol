@@ -41,9 +41,7 @@ contract UpgradeableProxy is ProxyBase {
     require(address(this).call.value(msg.value)(_data));
   }
 
-   /**
-   * @dev ERC897, whether it is a forwarding (1) or an upgradeable (2) proxy
-   */
+  /// @dev ERC897, whether it is a forwarding (1) or an upgradeable (2) proxy
   function proxyType() public pure returns (uint256 proxyTypeId) {
     return UPGRADEABLE;
   }

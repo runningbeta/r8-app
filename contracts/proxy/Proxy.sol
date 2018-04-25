@@ -9,15 +9,15 @@ import "../lib/aragon/DepositableDelegateProxy.sol";
 contract Proxy is DepositableDelegateProxy {
 
   /**
-  * @dev Tells the address of the implementation where every call will be delegated.
-  * @return address of the implementation to which it will be delegated
-  */
+   * @dev Tells the address of the implementation where every call will be delegated.
+   * @return address of the implementation to which it will be delegated
+   */
   function implementation() public view returns (address);
 
   /**
-  * @dev Fallback function allowing to perform a delegatecall to the given implementation.
-  * This function will return whatever the implementation call returns
-  */
+   * @dev Fallback function allowing to perform a delegatecall to the given implementation.
+   * This function will return whatever the implementation call returns
+   */
   function () payable public {
     address target = implementation();
     // if app code hasn't been set yet, don't call

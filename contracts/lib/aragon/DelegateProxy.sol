@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
-import "../misc/ERCProxy.sol";
 import "zeppelin-solidity/contracts/AddressUtils.sol";
+import "../misc/ERCProxy.sol";
 
 contract DelegateProxy is ERCProxy {
   using AddressUtils for address;
@@ -9,20 +9,20 @@ contract DelegateProxy is ERCProxy {
   uint256 constant public FWD_GAS_LIMIT = 10000;
 
   /**
-  * @dev Performs a delegatecall and returns whatever the delegatecall returned (entire context execution will return!)
-  * @param _dst Destination address to perform the delegatecall
-  * @param _calldata Calldata for the delegatecall
-  */
+   * @dev Performs a delegatecall and returns whatever the delegatecall returned (entire context execution will return!)
+   * @param _dst Destination address to perform the delegatecall
+   * @param _calldata Calldata for the delegatecall
+   */
   function delegatedFwd(address _dst, bytes _calldata) internal {
     delegatedFwd(_dst, _calldata, 0);
   }
 
   /**
-  * @dev Performs a delegatecall and returns whatever the delegatecall returned (entire context execution will return!)
-  * @param _dst Destination address to perform the delegatecall
-  * @param _calldata Calldata for the delegatecall
-  * @param _minReturnSize Minimum size the call needs to return, if less than that it will revert
-  */
+   * @dev Performs a delegatecall and returns whatever the delegatecall returned (entire context execution will return!)
+   * @param _dst Destination address to perform the delegatecall
+   * @param _calldata Calldata for the delegatecall
+   * @param _minReturnSize Minimum size the call needs to return, if less than that it will revert
+   */
   function delegatedFwd(address _dst, bytes _calldata, uint256 _minReturnSize) internal {
     require(_dst.isContract());
     uint256 size;
