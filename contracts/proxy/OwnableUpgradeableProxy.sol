@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 import "./UpgradeableProxy.sol";
 
@@ -21,7 +21,7 @@ contract OwnableUpgradeableProxy is UpgradeableProxy {
   /**
    * @dev the constructor sets the original owner of the contract to the sender account.
    */
-  function OwnableUpgradeableProxy(bytes32 _version, address _implementation, bytes _contentURI) public {
+  constructor(bytes32 _version, address _implementation, bytes _contentURI) public {
     _setProxyOwner(msg.sender);
     _upgradeTo(_version, _implementation, _contentURI);
   }

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 import "./ProxyBase.sol";
 
@@ -12,7 +12,7 @@ contract PinnedProxy is ProxyBase {
   /**
    * @dev the constructor sets the original owner of the contract to the sender account.
    */
-  function PinnedProxy(bytes32 _version, address _implementation, bytes _contentURI) public {
+  constructor(bytes32 _version, address _implementation, bytes _contentURI) public {
     require(_version > 0);
     require(_implementation != address(0));
     _setVersion(_version);
