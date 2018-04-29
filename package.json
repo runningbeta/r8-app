@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/runningbeta/r8-app#readme",
   "dependencies": {
-    "zeppelin-solidity": "1.8.0"
+    "openzeppelin-solidity": "^1.9.0"
   },
   "devDependencies": {
     "solium": "^1.1.6",

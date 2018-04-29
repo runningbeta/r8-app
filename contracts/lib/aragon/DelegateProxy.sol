@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import "zeppelin-solidity/contracts/AddressUtils.sol";
+import "openzeppelin-solidity/contracts/AddressUtils.sol";
 import "../misc/ERCProxy.sol";
 
 
