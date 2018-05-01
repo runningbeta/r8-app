@@ -9,7 +9,7 @@ contract DepositableDelegateProxy is DelegateProxy {
 
   function () payable public {
     // send / transfer
-    if (msg.gas < FWD_GAS_LIMIT) {
+    if (gasleft() < FWD_GAS_LIMIT) {
       require(msg.value > 0 && msg.data.length == 0);
       emit ProxyDeposit(msg.sender, msg.value);
     } else { // all calls except for send or transfer
