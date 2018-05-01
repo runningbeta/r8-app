@@ -40,7 +40,7 @@ contract TokenV1_1 is TokenV1_0 {
     allowances[from][msg.sender] -= value;
     balances[from] -= value;
     balances[to] += value;
-    Transfer(from, to, value);
+    emit Transfer(from, to, value);
   }
 
   function approve(address spender, uint256 value) public {
