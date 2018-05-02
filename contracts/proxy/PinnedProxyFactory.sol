@@ -3,6 +3,7 @@ pragma solidity ^0.4.23;
 import "../AppProxyFactory.sol";
 import "./PinnedProxy.sol";
 
+
 contract PinnedProxyFactory is AppProxyFactory {
   /**
    * @dev Creates a new PinnedProxy proxy

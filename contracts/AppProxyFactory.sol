@@ -3,6 +3,7 @@ pragma solidity ^0.4.23;
 import "./R8App.sol";
 import "./proxy/Proxy.sol";
 
+
 contract AppProxyFactory {
 
   /**

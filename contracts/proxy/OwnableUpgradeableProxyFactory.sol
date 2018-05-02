@@ -3,6 +3,7 @@ pragma solidity ^0.4.23;
 import "../AppProxyFactory.sol";
 import "./OwnableUpgradeableProxy.sol";
 
+
 contract OwnableUpgradeableProxyFactory is AppProxyFactory {
   /**
    * @dev Creates a new OwnableUpgradeableProxy proxy

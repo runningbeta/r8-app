@@ -3,6 +3,7 @@ pragma solidity ^0.4.23;
 import "../../AppProxyFactory.sol";
 import "./DelayedSealableUpgradeableProxy.sol";
 
+
 contract DelayedSealableUpgradeableProxyFactory is AppProxyFactory {
   /**
    * @dev Creates a new DelayedSealableUpgradeableProxy proxy
