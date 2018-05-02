@@ -2,7 +2,7 @@ import expectThrow from './helpers/expectThrow';
 import assertRevert from './helpers/assertRevert';
 import expectEvent from './helpers/expectEvent';
 
-const Factory = artifacts.require('AppProxyFactory');
+const Factory = artifacts.require('OwnableUpgradeableProxyFactory');
 const OwnableUpgradeableProxy = artifacts.require('OwnableUpgradeableProxy');
 
 const TokenV1_0 = artifacts.require('TokenV1_0');
@@ -26,7 +26,7 @@ contract('OwnableUpgradeableProxy', function (accounts) {
 
   describe('newUgradeableProxy', function() {
     beforeEach(async function () {
-      const {logs} = await this.factory.newUgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
     });
 
@@ -46,6 +46,11 @@ contract('OwnableUpgradeableProxy', function (accounts) {
         }
       });
 
+      it('isUpgraded function returns false', async function () {
+          const isUpgraded = await TokenV1_0.at(this.proxy).isUpgraded();
+          isUpgraded.should.be.equal(false);
+      });
+
       it('isn\'t implemented as TokenV1_1', async function () {
         await assertRevert(
           TokenV1_1.at(this.proxy).approve(accounts[1], 100)
@@ -62,7 +67,7 @@ contract('OwnableUpgradeableProxy', function (accounts) {
 
   describe('upgradeTo', function () {
     beforeEach(async function () {
-      const {logs} = await this.factory.newUgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
     });
 
@@ -106,12 +111,18 @@ contract('OwnableUpgradeableProxy', function (accounts) {
         const balance = await TokenV1_1.at(this.proxy).balanceOf(accounts[1]);
         balance.should.be.bignumber.equal(amount);
       });
+
+      it('isUpgraded function returns true', async function () {
+          await OwnableUpgradeableProxy.at(this.proxy).upgradeTo(web3Utils.utf8ToHex('1.1'), this.impl_v1_1.address, contentURI)
+          const isUpgraded = await TokenV1_1.at(this.proxy).isUpgraded();
+          isUpgraded.should.be.equal(true);
+      });
     });
   });
 
   describe('proxyOwner', function () {
     beforeEach(async function () {
-      const {logs} = await this.factory.newUgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
     });
 
@@ -125,7 +136,7 @@ contract('OwnableUpgradeableProxy', function (accounts) {
 
   describe('transferProxyOwnership', function () {
     beforeEach(async function () {
-      const { logs } = await this.factory.newUgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const { logs } = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
       this.transferTx = await OwnableUpgradeableProxy.at(this.proxy).transferProxyOwnership(accounts[1]);
     });

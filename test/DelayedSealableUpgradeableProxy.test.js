@@ -2,7 +2,7 @@ import expectThrow from './helpers/expectThrow';
 import assertRevert from './helpers/assertRevert';
 import expectEvent from './helpers/expectEvent';
 
-const Factory = artifacts.require('AppProxyFactory');
+const Factory = artifacts.require('DelayedSealableUpgradeableProxyFactory');
 const DelayedSealableUpgradeableProxy = artifacts.require('DelayedSealableUpgradeableProxy');
 
 const BlockMiner = artifacts.require('BlockMiner');
@@ -28,7 +28,7 @@ contract('DelayedSealableUpgradeableProxy', function (accounts) {
 
   describe('proxySealed', function () {
     beforeEach(async function () {
-      const {logs} = await this.factory.newDelayedSealableUpgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
     });
 
@@ -42,7 +42,7 @@ contract('DelayedSealableUpgradeableProxy', function (accounts) {
 
   describe('proxySealRequest', function () {
     beforeEach(async function () {
-      const {logs} = await this.factory.newDelayedSealableUpgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
     });
 
@@ -61,7 +61,7 @@ contract('DelayedSealableUpgradeableProxy', function (accounts) {
 
   describe('sealProxy', function () {
     beforeEach(async function () {
-      const {logs} = await this.factory.newDelayedSealableUpgradeableProxy(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
+      const {logs} = await this.factory.create(web3Utils.utf8ToHex('1.0'), this.impl_v1_0.address, contentURI);
       this.proxy = logs.find(l => l.event === 'NewAppProxy').args._proxy;
       await DelayedSealableUpgradeableProxy.at(this.proxy).proxySealRequest(120);
     });
