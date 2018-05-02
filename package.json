@@ -1,5 +1,5 @@
 {
-  "name": "r8-app",
+  "name": "@runningbeta/r8-app",
   "version": "0.0.1",
   "description": "Secure and Upgradeable App library for Solidity",
   "directories": {
@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/runningbeta/r8-app#readme",
   "dependencies": {
+    "@runningbeta/rbac-solidity": "0.0.3",
     "openzeppelin-solidity": "^1.9.0"
   },
   "devDependencies": {

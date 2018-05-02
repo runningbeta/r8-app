@@ -32,7 +32,7 @@ To use the code we provide an NPM package:
 
 ```bash
 # install dependencies
-npm install r8-app
+npm install @runningbeta/r8-app
 ```
 
 ## The upgrade mechanism
@@ -40,3 +40,7 @@ npm install r8-app
 The pattern used is `Upgradeability using Unstructured Storage` as described in [this repo](https://github.com/zeppelinos/labs/tree/master/upgradeability_using_unstructured_storage) and in [this](https://blog.zeppelinos.org/upgradeability-using-unstructured-storage/) blog post by [Zeppelin](https://zeppelinos.org/).
 
 Understanding the [DELEGATECALL](https://solidity.readthedocs.io/en/develop/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries) Ethereum opcode is key to understanding the upgradeable proxy pattern.
+
+Other projects using a delegate proxy pattern:
+- [Gnosis Safe](https://github.com/gnosis/safe-contracts)
+- [Decentraland LAND](https://github.com/decentraland/land)
