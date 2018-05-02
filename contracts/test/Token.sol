@@ -29,6 +29,9 @@ contract TokenV1_0 is R8App {
     emit Transfer(0x0, to, value);
   }
 
+  function isUpgraded() public pure returns (bool) {
+    return false;
+  }
 }
 
 
@@ -45,5 +48,9 @@ contract TokenV1_1 is TokenV1_0 {
 
   function approve(address spender, uint256 value) public {
     allowances[msg.sender][spender] = value;
+  }
+
+  function isUpgraded() public pure returns (bool) {
+    return true;
   }
 }
