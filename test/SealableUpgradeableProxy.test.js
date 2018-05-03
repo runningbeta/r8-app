@@ -5,7 +5,6 @@ import expectEvent from './helpers/expectEvent';
 const Factory = artifacts.require('SealableUpgradeableProxyFactory');
 const SealableUpgradeableProxy = artifacts.require('SealableUpgradeableProxy');
 
-const BlockMiner = artifacts.require('BlockMiner');
 const TokenV1_0 = artifacts.require('TokenV1_0');
 const TokenV1_1 = artifacts.require('TokenV1_1');
 
@@ -23,7 +22,6 @@ contract('SealableUpgradeableProxy', function (accounts) {
     this.impl_v1_0 = await TokenV1_0.new()
     this.impl_v1_1 = await TokenV1_1.new()
     this.factory = await Factory.new();
-    this.blockMiner = await BlockMiner.new();
   });
 
   describe('proxySealed', function () {
