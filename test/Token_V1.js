@@ -53,7 +53,7 @@ contract('Token_V1', ([_, proxyOwner, tokenOwner, owner, recipient, anotherAccou
       it('emits a burn event', async function () {
         const { logs } = await this.token.burn(amount, { from })
 
-        assert.equal(logs.length, 1)
+        assert.equal(logs.length, 2)
         assert.equal(logs[0].event, 'Burn')
         assert.equal(logs[0].args.burner, owner)
         assert.equal(logs[0].args.value, amount)
