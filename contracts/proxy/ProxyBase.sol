@@ -1,13 +1,13 @@
 pragma solidity ^0.4.23;
 
-import "./Proxy.sol";
+import "../lib/aragon/DepositableDelegateProxy.sol";
 
 
 /**
  * @title ProxyBase
  * @dev This contract combines an upgradeability proxy with basic authorization control functionalities
  */
-contract ProxyBase is Proxy {
+contract ProxyBase is DepositableDelegateProxy {
 
   // Storage position of the version name of the current implementation
   bytes32 private constant versionPosition = keccak256("io.runningbeta.proxy.version");
