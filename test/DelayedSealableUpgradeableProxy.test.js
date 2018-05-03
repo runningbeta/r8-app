@@ -1,11 +1,11 @@
 import expectThrow from './helpers/expectThrow';
 import assertRevert from './helpers/assertRevert';
 import expectEvent from './helpers/expectEvent';
+import advanceToBlock from './helpers/advanceToBlock';
 
 const Factory = artifacts.require('DelayedSealableUpgradeableProxyFactory');
 const DelayedSealableUpgradeableProxy = artifacts.require('DelayedSealableUpgradeableProxy');
 
-const BlockMiner = artifacts.require('BlockMiner');
 const TokenV1_0 = artifacts.require('TokenV1_0');
 const TokenV1_1 = artifacts.require('TokenV1_1');
 
@@ -23,7 +23,6 @@ contract('DelayedSealableUpgradeableProxy', function (accounts) {
     this.impl_v1_0 = await TokenV1_0.new()
     this.impl_v1_1 = await TokenV1_1.new()
     this.factory = await Factory.new();
-    this.blockMiner = await BlockMiner.new();
   });
 
   describe('proxySealed', function () {
@@ -83,9 +82,7 @@ contract('DelayedSealableUpgradeableProxy', function (accounts) {
       });
 
       it('[long] seal can be confirmed if more than [delay:120] blocks have passed', async function () {
-        for (var ii = 0; ii < 120; ii++) {
-          await this.blockMiner.mine({ from: accounts[0] });
-        }
+        await advanceToBlock(web3.eth.blockNumber + 120);
         await DelayedSealableUpgradeableProxy.at(this.proxy).sealProxy();
       });
     });
