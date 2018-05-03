@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 
+import "@aragon/os/contracts/lib/misc/ERCProxy.sol";
 import "./R8App.sol";
-import "./proxy/Proxy.sol";
 
 
 contract AppProxyFactory {
@@ -17,9 +17,9 @@ contract AppProxyFactory {
    * @param _version representing the first version to be set for the proxy
    * @return address of the new proxy created
    */
-  function create(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (Proxy);
+  function create(bytes32 _version, address _implementation, bytes _contentURI) public payable returns (ERCProxy);
   
-  function _init(Proxy _proxy, bool _isUpgradeable) internal {
+  function _init(ERCProxy _proxy, bool _isUpgradeable) internal {
     R8App(_proxy).initialize.value(msg.value)(msg.sender);
     emit NewAppProxy(address(_proxy), _isUpgradeable);
   }

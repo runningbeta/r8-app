@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/runningbeta/r8-app#readme",
   "dependencies": {
+    "@aragon/os": "^3.1.4",
     "@runningbeta/rbac-solidity": "0.0.3",
     "openzeppelin-solidity": "^1.9.0"
   },

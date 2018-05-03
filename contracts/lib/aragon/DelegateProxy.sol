@@ -1,10 +1,9 @@
 pragma solidity ^0.4.23;
 
 import "openzeppelin-solidity/contracts/AddressUtils.sol";
-import "../misc/ERCProxy.sol";
 
 
-contract DelegateProxy is ERCProxy {
+contract DelegateProxy {
   using AddressUtils for address;
 
   uint256 constant public FWD_GAS_LIMIT = 10000;
