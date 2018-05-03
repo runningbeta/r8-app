@@ -17,7 +17,7 @@ contract R8App is AppStorage, Initializable, RBACWithAdmin {
    * @param _sender representing the address deploying the initial behavior of the contract
    */
   function initialize(address _sender) public payable {
-    //require(msg.sender == address(registry));
-    addRole(msg.sender, ROLE_ADMIN);
+    addRole(_sender, ROLE_ADMIN);
+    initialized();
   }
 }
